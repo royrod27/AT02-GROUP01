@@ -8,7 +8,7 @@ context('Smoke Tests for Resources', function () {
 
 
 
-    it('Get /resources returns 200', function (done) {
+    it('Get /login returns 200', function (done) {
         resources.getResources(function (err, res) {
             expect(res.status).to.equal(expectedStatus);
             done();

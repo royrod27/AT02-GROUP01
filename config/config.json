@@ -1,5 +1,12 @@
 {
   "url": "https://localhost:4040/",
-  "username": "royrod",
-  "password": "Sabbath27"
+  "username": "Admin",
+  "password": "Slayer777",
+
+  "logger": {
+    "appenders": [
+      { "type": "file", "filename": "room-manager-auto.log", "category": "project"},
+      { "type": "file", "filename": "room-manager-auto.log", "category": "item"}
+    ]
+  }
 }
