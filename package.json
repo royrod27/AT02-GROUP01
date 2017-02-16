@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha",
     "watch": "mocha --watch",
-    "smoke": "mocha --recursive"
+    "smoke": "mocha test/smoke --recursive",
+    "acceptance": "mocha test/acceptance --recursive"
   },
   "repository": {
     "type": "git",
