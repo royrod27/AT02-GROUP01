@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var resources = require('../../lib/features/Login');
+var login = require('../../lib/features/Login');
 
 
 context('Smoke Tests for Login', function () {
@@ -7,7 +7,7 @@ context('Smoke Tests for Login', function () {
     this.timeout(5000);
 
     it('Post /login returns 200', function (done) {
-        resources.postLogin(function (err, res) {
+        login.postLogin(function (err, res) {
             expect(res.status).to.equal(expectedStatus);
             done();
         });
