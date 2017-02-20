@@ -2,9 +2,18 @@ var expect = require('chai').expect;
 var resources = require('../../lib/features/Resources');
 var room_resources = require('../../lib/features/RoomResources');
 var room = require('../../resources/room.json');
+var tokenGenerator = require('../../lib/helpers/TokenGenerator');
 
 context('Smoke test for resources of rooms', function () {
     this.timeout(5000);
+
+
+    before(function (done) {
+        tokenGenerator
+            .generateToken(function (err, res) {
+                done();
+            })
+    });
 
     var body = {
         name: "testResource",
@@ -29,7 +38,7 @@ context('Smoke test for resources of rooms', function () {
         });
     });
 
-    it.only('get resources by id GET /rooms/{roomId}/resources/{:resourceId}', function (done) {
+    it('get resources by id GET /rooms/{roomId}/resources/{:resourceId}', function (done) {
         var jsonJoin = {
             resourceId: resourceRes.body._id,
             quantity: 5

@@ -1,5 +1,6 @@
 var expect = require('chai').expect;
 var resources = require('../../lib/features/Resources');
+var tokenGenerator = require('../../lib/helpers/TokenGenerator')
 
 context('Smoke Tests for Resources', function () {
     this.timeout(5000);
@@ -13,6 +14,13 @@ context('Smoke Tests for Resources', function () {
         description: 'This is a television'
     };
     var resourceErr, resourceRes;
+
+    before(function (done) {
+        tokenGenerator
+            .generateToken(function (err, res) {
+                done();
+            })
+    });
 
     beforeEach(function (done) {
         resources.postResources(body, function (err, res) {
