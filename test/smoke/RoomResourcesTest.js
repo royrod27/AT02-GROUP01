@@ -1,18 +1,34 @@
 var expect = require('chai').expect;
 var resources = require('../../lib/features/Resources');
 var room_resources = require('../../lib/features/RoomResources');
-var room = require('../../resources/room.json');
+var room = require('../../lib/helpers/room');
 var tokenGenerator = require('../../lib/helpers/TokenGenerator');
+var roomGenerator = require('../../lib/helpers/GetterRoom');
+var serviceGenerator = require('../../lib/helpers/ServiceGenerator');
 
-before(function (done) {
-    tokenGenerator
-        .generateToken(function (err, res) {
-            done();
-        })
-});
+
 
 context('Smoke test for resources of rooms', function () {
     this.timeout(10000);
+
+
+    before(function (done) {
+        tokenGenerator
+            .generateToken(function (err, res) {
+                serviceGenerator.generateService(function (err, res) {
+                    roomGenerator.getRoom(function (err, res) {
+                        done();
+                    });
+                });
+            });
+    });
+
+    after(function (done) {
+        serviceGenerator.deleteService(function (err, res) {
+            done();
+        });
+    });
+
 
     var body = {
         name: "testResource",
@@ -28,6 +44,7 @@ context('Smoke test for resources of rooms', function () {
         resources.postResources(body, function (err, res) {
             resourceErr = err;
             resourceRes = res.body;
+
             done();
         });
     });
@@ -42,8 +59,8 @@ context('Smoke test for resources of rooms', function () {
             resourceId: resourceRes._id,
             quantity: 5
         };
-        room_resources.joinRoomResource(room.id, jsonJoin, function (err, res) {
-            room_resources.getResourceOfRoom(room.id, res.body.resources[0]._id, function (err, res) {
+        room_resources.joinRoomResource(room._id, jsonJoin, function (err, res) {
+            room_resources.getResourceOfRoom(room._id, res.body.resources[0]._id, function (err, res) {
                 expect(200).to.equal(res.status);
                 done();
             })
@@ -55,8 +72,8 @@ context('Smoke test for resources of rooms', function () {
             resourceId: resourceRes._id,
             quantity: 5
         };
-        room_resources.joinRoomResource(room.id, jsonJoin, function (err, res) {
-            room_resources.putResourceOfRoom(room.id, res.body.resources[0]._id,{"quantity": 10}, function (err, res) {
+        room_resources.joinRoomResource(room._id, jsonJoin, function (err, res) {
+            room_resources.putResourceOfRoom(room._id, res.body.resources[0]._id, {"quantity": 10}, function (err, res) {
                 expect(200).to.equal(res.status);
                 done();
             })
@@ -68,8 +85,8 @@ context('Smoke test for resources of rooms', function () {
             resourceId: resourceRes._id,
             quantity: 5
         };
-        room_resources.joinRoomResource(room.id, jsonJoin, function (err, res) {
-            room_resources.delResourceOfRoom(room.id, res.body.resources[0]._id, function (err, res) {
+        room_resources.joinRoomResource(room._id, jsonJoin, function (err, res) {
+            room_resources.delResourceOfRoom(room._id, res.body.resources[0]._id, function (err, res) {
                 expect(200).to.equal(res.status);
                 done();
             })

@@ -1,6 +1,6 @@
 var expect = require('chai').expect;
 var resources = require('../../lib/features/Resources');
-var tokenGenerator = require('../../lib/helpers/TokenGenerator')
+var tokenGenerator = require('../../lib/helpers/TokenGenerator');
 
 context('Smoke Tests for Resources', function () {
     this.timeout(5000);
