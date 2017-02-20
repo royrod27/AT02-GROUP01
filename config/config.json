@@ -1,7 +1,7 @@
 {
-  "url": "https://localhost:4040/",
-  "username": "royrod",
-  "password": "Sabbath27",
+  "url": "https://10.28.114.51:4040/",
+  "username": "Admin",
+  "password": "Slayer777",
 
   "logger": {
     "appenders": [

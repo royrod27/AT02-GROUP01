@@ -1,10 +1,10 @@
 {
-  "id" : "58a2c22bd61874c404e41bec",
-  "emailAddress" : "serlan@atser.local",
-  "displayName" : "ser lan",
-  "serviceId" : "58a2c22bd61874c404e41bea",
+  "id" : "589477e9b5acb0c806d68dae",
+  "emailAddress" : "gualy777@gualy.lab.local",
+  "displayName" : "Gualy Vc",
+  "serviceId" : "589477e9b5acb0c806d68dad",
   "enabled" : true,
   "locationId" : "58a35dd9d61874c404e41c34",
-  "customDisplayName" : "ser lan",
-  "Url" : "https://localhost:4040/rooms/58a2c22bd61874c404e41bec"
+  "customDisplayName" : "Gualy Vc",
+  "Url" : "https://10.28.114.51:4040/rooms/589477e9b5acb0c806d68dae"
 }
