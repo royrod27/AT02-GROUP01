@@ -10,7 +10,7 @@ before(function (done) {
         })
 });
 
-context.only('Smoke test for Locations', function () {
+context('Smoke test for Locations', function () {
     this.timeout(10000);
 
     var body = {
@@ -83,7 +83,7 @@ context.only('Smoke test for Locations', function () {
             "description": "this is the room"
         };
         locations.postLocation(bodyJsonDelete, function (err, res) {
-            locations.delLocationById(locationRes._id, function (err, res) {
+            locations.delLocationById(res.body._id, function (err, res) {
                 expect(res.status).to.equal(200);
                 done();
             })
