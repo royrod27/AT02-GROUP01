@@ -12,13 +12,6 @@ context('Smoke Tests for Rooms', function () {
     before(function (done) {
         tokenGenerator
             .generateToken(function (err, res) {
-                done();
-            })
-    });
-
-    before(function (done) {
-        tokenGenerator
-            .generateToken(function (err, res) {
                 serviceGenerator.generateService(function (err, res) {
                     roomGenerator.getRoom(function (err, res) {
                         done();
