@@ -82,6 +82,8 @@ context('Smoke test for Services', function () {
         })
     });
 
+    /////////////////////////////
+
     it('Get /services/{:serviceId}/rooms/{:roomId}/out-of-orders returns 200', function (done) {
         outOfOrders.getOutOfOrders(serviceRes.body._id, room._id, function (err, res) {
             expect(res.status).to.equal(expectedStatus);
@@ -89,8 +91,9 @@ context('Smoke test for Services', function () {
         })
     });
 
+
     it('Post /services/{:serviceId}/rooms/{:roomId}/out-of-orders returns 200', function (done) {
-        var body = {
+        var ordersJson = {
             from: "",
             to: "",
             title: "Temporarily Out of Order",
@@ -98,14 +101,15 @@ context('Smoke test for Services', function () {
             sendEmail: false
         };
 
-        outOfOrders.postOutOfOrders(serviceRes.body._id, room._id, body, function (err, res) {
+        outOfOrders.postOutOfOrders(serviceRes.body._id, room._id, ordersJson, function (err, res) {
             expect(res.status).to.equal(expectedStatus);
             done();
         })
+
     });
 
     it('Get /services/{:serviceId}/rooms/{:roomId}/out-of-orders/{:outOfOrderId} returns 200', function (done) {
-        var body = {
+        var ordersJson = {
             from: "",
             to: "",
             title: "Temporarily Out of Order",
@@ -113,17 +117,18 @@ context('Smoke test for Services', function () {
             sendEmail: false
         };
 
-        outOfOrders.postOutOfOrders(serviceRes.body._id, room._id, body, function (err, res) {
+        outOfOrders.postOutOfOrders(serviceRes.body._id, room._id, ordersJson, function (err, res) {
             var outOfOrder_id =  res.body._id;
             outOfOrders.getOutOfOrdersById(serviceRes.body._id, room._id, outOfOrder_id, function (err, res) {
                 expect(res.status).to.equal(expectedStatus);
                 done();
-            })
+            });
         })
     });
 
-    it.only('Put /services/{:serviceId}/rooms/{:roomId}/out-of-orders/{:outOfOrderId} returns 200', function (done) {
-        var body = {
+
+    it('Put /services/{:serviceId}/rooms/{:roomId}/out-of-orders/{:outOfOrderId} returns 200', function (done) {
+        var ordersJson = {
             from: "",
             to: "",
             title: "Temporarily Out of Order",
@@ -131,14 +136,31 @@ context('Smoke test for Services', function () {
             sendEmail: false
         };
 
-        outOfOrders.postOutOfOrders(serviceRes.body._id, room._id, body, function (err, res) {
+        outOfOrders.postOutOfOrders(serviceRes.body._id, room._id, ordersJson, function (err, res) {
             var outOfOrder_id =  res.body._id;
             var bodyChanged = {
                 title: "Out_of_Order"
             };
             outOfOrders.putOutOfOrdersById(serviceRes.body._id, room._id, outOfOrder_id, bodyChanged, function (err, res) {
                 expect(res.status).to.equal(expectedStatus);
-                console.log(res.body);
+                done();
+            })
+        })
+    });
+
+    it('Delete /services/{:serviceId}/rooms/{:roomId}/out-of-orders/{:outOfOrderId} returns 200', function (done) {
+        var ordersJson = {
+            from: "",
+            to: "",
+            title: "Temporarily Out of Order",
+            roomId: ''+room._id+'',
+            sendEmail: false
+        };
+
+        outOfOrders.postOutOfOrders(serviceRes.body._id, room._id, ordersJson, function (err, res) {
+            var outOfOrder_id =  res.body._id;
+            outOfOrders.deleteOutOfOrdersById(serviceRes.body._id, room._id, outOfOrder_id, function (err, res) {
+                expect(res.status).to.equal(expectedStatus);
                 done();
             })
         })
