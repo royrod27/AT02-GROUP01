@@ -1,5 +1,6 @@
 var expect = require('chai').expect;
 var services = require('../../lib/features/Services');
+var outOfOrders = require('../../lib/features/OutOfOrders');
 var tokenGenerator = require('../../lib/helpers/TokenGenerator');
 var credentials = require('../../config/config.json');
 var roomGenerator = require('../../lib/helpers/GetterRoom');
@@ -78,6 +79,68 @@ context('Smoke test for Services', function () {
         services.getARoomOfAService(serviceRes.body._id, room._id, function (err, res) {
             expect(res.status).to.equal(expectedStatus);
             done();
+        })
+    });
+
+    it('Get /services/{:serviceId}/rooms/{:roomId}/out-of-orders returns 200', function (done) {
+        outOfOrders.getOutOfOrders(serviceRes.body._id, room._id, function (err, res) {
+            expect(res.status).to.equal(expectedStatus);
+            done();
+        })
+    });
+
+    it('Post /services/{:serviceId}/rooms/{:roomId}/out-of-orders returns 200', function (done) {
+        var body = {
+            from: "",
+            to: "",
+            title: "Temporarily Out of Order",
+            roomId: ''+room._id+'',
+            sendEmail: false
+        };
+
+        outOfOrders.postOutOfOrders(serviceRes.body._id, room._id, body, function (err, res) {
+            expect(res.status).to.equal(expectedStatus);
+            done();
+        })
+    });
+
+    it('Get /services/{:serviceId}/rooms/{:roomId}/out-of-orders/{:outOfOrderId} returns 200', function (done) {
+        var body = {
+            from: "",
+            to: "",
+            title: "Temporarily Out of Order",
+            roomId: ''+room._id+'',
+            sendEmail: false
+        };
+
+        outOfOrders.postOutOfOrders(serviceRes.body._id, room._id, body, function (err, res) {
+            var outOfOrder_id =  res.body._id;
+            outOfOrders.getOutOfOrdersById(serviceRes.body._id, room._id, outOfOrder_id, function (err, res) {
+                expect(res.status).to.equal(expectedStatus);
+                done();
+            })
+        })
+    });
+
+    it.only('Put /services/{:serviceId}/rooms/{:roomId}/out-of-orders/{:outOfOrderId} returns 200', function (done) {
+        var body = {
+            from: "",
+            to: "",
+            title: "Temporarily Out of Order",
+            roomId: ''+room._id+'',
+            sendEmail: false
+        };
+
+        outOfOrders.postOutOfOrders(serviceRes.body._id, room._id, body, function (err, res) {
+            var outOfOrder_id =  res.body._id;
+            var bodyChanged = {
+                title: "Out_of_Order"
+            };
+            outOfOrders.putOutOfOrdersById(serviceRes.body._id, room._id, outOfOrder_id, bodyChanged, function (err, res) {
+                expect(res.status).to.equal(expectedStatus);
+                console.log(res.body);
+                done();
+            })
         })
     });
 
