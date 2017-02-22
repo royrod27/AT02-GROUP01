@@ -81,6 +81,16 @@ context('Smoke test for Services', function () {
         })
     });
 
+    it('PUT /services/{serviceId}/rooms/{roomId} returns 200', function (done) {
+        var jsonUpdatedRoom = {
+            quantity: 11,
+        };
+        services.putARoomOfAService(serviceRes.body._id, room._id, jsonUpdatedRoom, function (err, res) {
+            expect(res.status).to.equal(expectedStatus);
+            done();
+        })
+    });
+
     it('Delete /services/{serviceId} returns 200', function (done) {
         var idService = serviceRes.body._id;
         services.deleteService(idService, function (err, res) {
