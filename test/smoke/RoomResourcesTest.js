@@ -10,7 +10,6 @@ var serviceGenerator = require('../../lib/helpers/ServiceGenerator');
 context('Smoke test for resources of rooms', function () {
     this.timeout(10000);
 
-
     before(function (done) {
         tokenGenerator
             .generateToken(function (err, res) {
@@ -90,6 +89,24 @@ context('Smoke test for resources of rooms', function () {
                 done();
             })
         })
+    })
+
+    it('GET /rooms/{:roomId}/resources', function (done) {
+        room_resources.getResourcesByRoom(room._id, function (err, res) {
+            expect(res.status).to.equal(200);
+            done();
+        })
+    })
+
+    it('POST /rooms/{:roomId}/resources/', function (done) {
+        var joinResourceToRoom = {
+            resourceId: resourceRes._id,
+            quantity: 8
+        };
+        room_resources.joinRoomResource(room._id, joinResourceToRoom, function (err, res) {
+                expect(200).to.equal(res.status);
+                done();
+            })
     })
 })
 
