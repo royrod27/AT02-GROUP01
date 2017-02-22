@@ -7,7 +7,6 @@ var roomGenerator = require('../../lib/helpers/GetterRoom');
 var serviceGenerator = require('../../lib/helpers/ServiceGenerator');
 
 
-
 context('Smoke test for resources of rooms', function () {
     this.timeout(10000);
 
