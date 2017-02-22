@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha --recursive",
     "watch": "mocha --watch --recursive",
+
     "smoke": "mocha test/smoke",
     "acceptance": "mocha test/acceptance --recursive",
     "bdt" : "mocha test/bdt --recursive"
