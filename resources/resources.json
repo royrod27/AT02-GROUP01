@@ -1,3 +1,17 @@
 {
-  "endpoint": "resources"
+  "endpoint": "resources",
+  "postBody": {
+    "name": "TELEVISION",
+    "customName": "Television",
+    "fontIcon": "fa fa-desktop",
+    "from": "",
+    "description": "This is a television"
+  },
+  "putBody": {
+    "name": "FLAG",
+    "customName": "flag",
+    "fontIcon": "fa fa-flag",
+    "from": "",
+    "description": "Now this is a flag"
+  }
 }
