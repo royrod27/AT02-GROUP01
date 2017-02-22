@@ -4,7 +4,7 @@
   "description": "Create a new framework",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --recursive",
     "watch": "mocha --watch",
     "smoke": "mocha test/smoke",
     "acceptance": "mocha test/acceptance --recursive"
