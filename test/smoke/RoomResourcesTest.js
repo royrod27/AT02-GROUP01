@@ -9,7 +9,7 @@ var serviceGenerator = require('../../lib/helpers/ServiceGenerator');
 
 context('Smoke test for resources of rooms', function () {
     this.timeout(10000);
-
+    var expectedStatus = 200;
 
     before(function (done) {
         tokenGenerator
@@ -27,7 +27,6 @@ context('Smoke test for resources of rooms', function () {
             done();
         });
     });
-
 
     var body = {
         name: "testResource",
@@ -60,7 +59,7 @@ context('Smoke test for resources of rooms', function () {
         };
         room_resources.joinRoomResource(room._id, jsonJoin, function (err, res) {
             room_resources.getResourceOfRoom(room._id, res.body.resources[0]._id, function (err, res) {
-                expect(200).to.equal(res.status);
+                expect(res.status).to.equal(expectedStatus);
                 done();
             })
         })
@@ -73,7 +72,7 @@ context('Smoke test for resources of rooms', function () {
         };
         room_resources.joinRoomResource(room._id, jsonJoin, function (err, res) {
             room_resources.putResourceOfRoom(room._id, res.body.resources[0]._id, {"quantity": 10}, function (err, res) {
-                expect(200).to.equal(res.status);
+                expect(res.status).to.equal(expectedStatus);
                 done();
             })
         })
@@ -86,9 +85,27 @@ context('Smoke test for resources of rooms', function () {
         };
         room_resources.joinRoomResource(room._id, jsonJoin, function (err, res) {
             room_resources.delResourceOfRoom(room._id, res.body.resources[0]._id, function (err, res) {
-                expect(200).to.equal(res.status);
+                expect(res.status).to.equal(expectedStatus);
                 done();
             })
+        })
+    })
+
+    it('GET /rooms/{:roomId}/resources', function (done) {
+        room_resources.getResourcesByRoom(room._id, function (err, res) {
+            expect(res.status).to.equal(expectedStatus);
+            done();
+        })
+    })
+
+    it('POST /rooms/{:roomId}/resources/', function (done) {
+        var joinResourceToRoom = {
+            resourceId: resourceRes._id,
+            quantity: 8
+        };
+        room_resources.joinRoomResource(room._id, joinResourceToRoom, function (err, res) {
+                expect(res.status).to.equal(expectedStatus);
+                done();
         })
     })
 })

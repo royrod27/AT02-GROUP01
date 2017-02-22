@@ -1,5 +1,5 @@
 /**
- * Created by Administrator on 2/21/2017.
+ * Created by Fernando on 2/21/2017.
  */
 var expect = require('chai').expect;
 var tokenGenerator = require('../../lib/helpers/TokenGenerator');
