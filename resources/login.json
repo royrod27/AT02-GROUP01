@@ -1,3 +1,7 @@
 {
-  "endpoint" : "login"
+  "endpoint": "login",
+  "header": {
+    "Content-Type": "application/json"
+  },
+  "authentication": "local"
 }

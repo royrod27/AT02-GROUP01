@@ -3,14 +3,22 @@
   "username": "Admin",
   "password": "Slayer777",
 
-  "serviceUsername" : "Administrator",
-  "servicePassword":"Slayer777",
-  "hostname":"at02guvi02lab.gualy.lab.local",
+  "serviceUsername": "Administrator",
+  "servicePassword": "Slayer777",
+  "hostname": "at02guvi02lab.gualy.lab.local",
 
   "logger": {
     "appenders": [
-      { "type": "file", "filename": "room-manager-auto.log", "category": "project"},
-      { "type": "file", "filename": "room-manager-auto.log", "category": "item"}
+      {
+        "type": "file",
+        "filename": "room-manager-auto.log",
+        "category": "project"
+      },
+      {
+        "type": "file",
+        "filename": "room-manager-auto.log",
+        "category": "item"
+      }
     ]
   }
 }
