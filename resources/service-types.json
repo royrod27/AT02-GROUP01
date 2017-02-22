@@ -1,3 +1,6 @@
 {
-  "endpoint": "service-types"
+  "endpoint": "service-types",
+  "serviceName": "exchange",
+  "serviceVersion": "0.0.1",
+  "support": "Exchange Server 2010"
 }
