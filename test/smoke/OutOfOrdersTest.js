@@ -7,7 +7,7 @@ var roomGenerator = require('../../lib/helpers/GetterRoom');
 var room = require('../../lib/helpers/room');
 
 
-context.only('Smoke test for Out Of Orders', function () {
+context('Smoke test for Out-Of-Orders', function () {
     var expectedStatus = 200;
     this.timeout(30000);
 
@@ -17,7 +17,7 @@ context.only('Smoke test for Out Of Orders', function () {
         hostname: credentials.hostname
     };
 
-    var serviceRes;
+    var serviceId;
     var orderJson;
     var outOfOrder_body;
     var outOfOrder_status;
@@ -26,7 +26,7 @@ context.only('Smoke test for Out Of Orders', function () {
         tokenGenerator
             .generateToken(function (err, res) {
                 services.postServices(serviceJson, function (err, res) {
-                    serviceRes = res;
+                    serviceId = res.body._id;
                     roomGenerator.getRoom(function (err, res) {
                         orderJson = {
                             from: "",
@@ -36,7 +36,7 @@ context.only('Smoke test for Out Of Orders', function () {
                             sendEmail: false
                         };
 
-                        outOfOrders.postOutOfOrders(serviceRes.body._id, room._id, orderJson, function (err, res) {
+                        outOfOrders.postOutOfOrders(serviceId, room._id, orderJson, function (err, res) {
                             outOfOrder_body = res.body;
                             outOfOrder_status = res.status;
                             done();
@@ -47,13 +47,13 @@ context.only('Smoke test for Out Of Orders', function () {
     });
 
     after(function (done) {
-        services.deleteService(serviceRes.body._id, function (err, res) {
+        services.deleteService(serviceId, function (err, res) {
             done();
         })
     });
 
     it('Get /services/{:serviceId}/rooms/{:roomId}/out-of-orders returns 200', function (done) {
-        outOfOrders.getOutOfOrders(serviceRes.body._id, room._id, function (err, res) {
+        outOfOrders.getOutOfOrders(serviceId, room._id, function (err, res) {
             expect(res.status).to.equal(expectedStatus);
             done();
         })
@@ -66,27 +66,24 @@ context.only('Smoke test for Out Of Orders', function () {
     });
 
     it('Get /services/{:serviceId}/rooms/{:roomId}/out-of-orders/{:outOfOrderId} returns 200', function (done) {
-
-
-        outOfOrders.getOutOfOrdersById(serviceRes.body._id, room._id, outOfOrder_body._id, function (err, res) {
+        outOfOrders.getOutOfOrdersById(serviceId, room._id, outOfOrder_body._id, function (err, res) {
             expect(res.status).to.equal(expectedStatus);
             done();
         });
     });
 
-
     it('Put /services/{:serviceId}/rooms/{:roomId}/out-of-orders/{:outOfOrderId} returns 200', function (done) {
         var bodyChanged = {
             title: "Out_of_Order"
         };
-        outOfOrders.putOutOfOrdersById(serviceRes.body._id, room._id, outOfOrder_body._id, bodyChanged, function (err, res) {
+        outOfOrders.putOutOfOrdersById(serviceId, room._id, outOfOrder_body._id, bodyChanged, function (err, res) {
             expect(res.status).to.equal(expectedStatus);
             done();
         });
     });
 
     it('Delete /services/{:serviceId}/rooms/{:roomId}/out-of-orders/{:outOfOrderId} returns 200', function (done) {
-        outOfOrders.deleteOutOfOrdersById(serviceRes.body._id, room._id, outOfOrder_body._id, function (err, res) {
+        outOfOrders.deleteOutOfOrdersById(serviceId, room._id, outOfOrder_body._id, function (err, res) {
             expect(res.status).to.equal(expectedStatus);
             done();
         });
