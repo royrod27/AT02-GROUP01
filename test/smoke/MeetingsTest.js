@@ -25,6 +25,7 @@ context.skip('Smoke test for Meetings', function () {
     before(function (done) {
         tokenGenerator
             .generateToken(function (err, res) {
+
                 services.postServices(serviceJson, function (err, res) {
                     serviceId = res.body._id;
                     roomGenerator.getRoom(function (err, res) {
@@ -49,9 +50,11 @@ context.skip('Smoke test for Meetings', function () {
                             done();
                         })
                     })
+
                 });
             });
     });
+
 
     after(function (done) {
         services.deleteService(serviceId, function (err, res) {
@@ -72,3 +75,4 @@ context.skip('Smoke test for Meetings', function () {
         done();
     });
 });
+
