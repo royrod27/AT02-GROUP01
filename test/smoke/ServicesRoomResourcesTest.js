@@ -16,6 +16,9 @@ context('Smoke tests for Services/Room/Resources endpoint', function () {
     var expectedStatus = 200;
     var responsePost;
     var idResource;
+    var resourceIdInARoom;
+    var responseDelete;
+
     before(function (done) {
         tokenGenerator
             .generateToken(function (err, res) {
@@ -49,14 +52,15 @@ context('Smoke tests for Services/Room/Resources endpoint', function () {
     after(function (done) {
         serviceGenerator.deleteService(function (err, res) {
             resources.deleteResource(idResource, function (err, res) {
+                responseDelete = res;
                 done();
             })
         });
     });
 
-
     it('Get /services/{serviceId}/rooms/{roomId}/resources/ returns 200', function (done) {
         services.getResourcesOfRoomsOfServices(service._id, room._id, function (err, res) {
+            resourceIdInARoom = res.body[0]._id;
             expect(res.status).to.equal(expectedStatus);
             done();
         })
@@ -65,5 +69,30 @@ context('Smoke tests for Services/Room/Resources endpoint', function () {
     it('Post /services/{serviceId}/rooms/{roomId}/resources/ returns 200', function (done) {
         expect(responsePost.status).to.equal(expectedStatus);
         done();
+    });
+
+    it('Get /services/{serviceId}/rooms/{roomId}/resources/{resourceId} returns 200', function (done) {
+        services.getResourceByIdOfRoomsOfServices(service._id, room._id, resourceIdInARoom, function (err, res) {
+            expect(res.status).to.equal(expectedStatus)
+            done();
+        })
+    });
+
+    it('Put /services/{serviceId}/rooms/{roomId}/resources/{resourceId} returns 200', function (done) {
+        var putResourceById =
+            {
+                "quantity": 5
+            };
+        services.putResourceByIdOfRoomsOfServices(service._id, room._id, resourceIdInARoom, putResourceById, function (err, res) {
+            expect(res.status).to.equal(expectedStatus)
+            done();
+        })
+    });
+
+    it('Delete /services/{serviceId}/rooms/{roomId}/resources/{resourceId} returns 200', function (done) {
+        resources.deleteResource(idResource, function (err, res) {
+            expect(res.status).to.equal(expectedStatus);
+            done();
+        })
     });
 });
