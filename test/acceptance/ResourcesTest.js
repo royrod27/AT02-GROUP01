@@ -9,14 +9,12 @@ context('Acceptance Tests for Resources', function () {
     var expectedStatus = 200;
     var minimumResources = 1;
     var responsePostResource;
-
     before(function (done) {
         tokenGenerator
             .generateToken(function (err, res) {
                 done();
             })
     });
-
 
     beforeEach(function (done) {
         resources.postResources(resourcesConfig.postBody, function (err, res) {
