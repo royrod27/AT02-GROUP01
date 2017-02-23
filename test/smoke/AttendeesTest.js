@@ -6,8 +6,8 @@ var credentials = require('../../config/config.json');
 
 
 context('Smoke test for Attendees', function () {
-    var expectedStatus = 200;
-    this.timeout(30000);
+    var expectedStatus = credentials.StatusOK;
+    this.timeout(credentials.timeout);
 
     var serviceJson = {
         username: credentials.serviceUsername,

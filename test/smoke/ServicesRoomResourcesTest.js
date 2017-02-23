@@ -9,11 +9,11 @@ var services = require('../../lib/features/Services');
 var resources = require('../../lib/features/Resources');
 var room = require('../../lib/helpers/room');
 var service = require('../../lib/helpers/service');
+var credentials = require('../../config/config.json');
 
 context('Smoke tests for Services/Room/Resources endpoint', function () {
-    this.timeout(10000);
-
-    var expectedStatus = 200;
+    var expectedStatus = credentials.StatusOK;
+    this.timeout(credentials.timeout);
     var responsePost;
     var idResource;
     var resourceIdInARoom;

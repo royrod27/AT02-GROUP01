@@ -5,6 +5,7 @@ var tokenGenerator = require('../../lib/helpers/TokenGenerator');
 var roomGenerator = require('../../lib/helpers/GetterRoom');
 var serviceGenerator = require('../../lib/helpers/ServiceGenerator');
 var locations = require('../../lib/features/Locations');
+var credentials = require('../../config/config.json');
 
 /*Variable*/
 var roomsRes;
@@ -14,6 +15,8 @@ var idPueblito;
 var idJala;
 
 describe('Reassign the disable conference room', function () {
+    var expectedStatus = credentials.StatusOK;
+    this.timeout(credentials.timeout);
     before(function (done) {
         tokenGenerator
             .generateToken(function (err, res) {
@@ -40,7 +43,7 @@ describe('Reassign the disable conference room', function () {
         });
     });
 
-    describe('Given I have a disabled conference room (Tarata)', function () {
+    context('Given I have a disabled conference room (Tarata)', function () {
         before(function (done) {
             roomGenerator.getRoom(function (err, res) {
                 rooms
@@ -75,7 +78,7 @@ describe('Reassign the disable conference room', function () {
                     parentId: res1.body._id
                 };
                 locations.postLocation(locationsTwo, function (err2, res2) {
-                    idPlantaBaja = res2.body._id
+                    idPlantaBaja = res2.body._id;
                     var jsonLocation = {
                         locationId: res2.body._id
                     };
@@ -105,7 +108,7 @@ describe('Reassign the disable conference room', function () {
         })
     });
 
-    describe('When I assign (Tarata)  to (Jalasoft\Planta Baja\Pueblito)', function () {
+    context('When I assign (Tarata)  to (Jalasoft\Planta Baja\Pueblito)', function () {
         var resTarataPueblito;
         before(function (done) {
             rooms.putRoomsById(roomsRes[1]._id, {locationId: idPueblito}, function (err, res) {
@@ -115,7 +118,7 @@ describe('Reassign the disable conference room', function () {
         });
 
         it('Then  Tarata is correctly assigned to the new location', function () {
-            expect(resTarataPueblito.status).to.equal(200);
+            expect(resTarataPueblito.status).to.equal(expectedStatus);
             expect(resTarataPueblito.body.locationId).to.equal(idPueblito);
         });
 

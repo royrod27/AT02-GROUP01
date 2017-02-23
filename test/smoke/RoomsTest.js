@@ -4,10 +4,11 @@ var room = require('../../lib/helpers/room');
 var tokenGenerator = require('../../lib/helpers/TokenGenerator');
 var roomGenerator = require('../../lib/helpers/GetterRoom');
 var serviceGenerator = require('../../lib/helpers/ServiceGenerator');
+var credentials = require('../../config/config.json');
 
 context('Smoke Tests for Rooms', function () {
-    this.timeout(5000);
-    var expectedStatus = 200;
+    var expectedStatus = credentials.StatusOK;
+    this.timeout(credentials.timeout);
 
     before(function (done) {
         tokenGenerator

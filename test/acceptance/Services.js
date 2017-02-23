@@ -6,8 +6,8 @@ var roomGenerator = require('../../lib/helpers/GetterRoom');
 var room = require('../../lib/helpers/room');
 
 context('Acceptance test for Services', function () {
-    this.timeout(5000);
-    var expectedStatus = 200;
+    var expectedStatus = credentials.StatusOK;
+    this.timeout(credentials.timeout);
     var minimumServices = 0;
 
     var postBody = {
