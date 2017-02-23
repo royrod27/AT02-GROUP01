@@ -12,7 +12,7 @@ var moment = require('moment');
 var service = require('../../lib/helpers/service');
 
 
-context.only('Smoke test for meetings', function () {
+context('Smoke test for meetings', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
     var start = 193;
