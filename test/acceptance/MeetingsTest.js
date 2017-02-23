@@ -16,7 +16,8 @@ context('Smoke test for meetings', function () {
     this.timeout(credentials.timeout);
     var start = credentials.startTime;
     var end = credentials.endTime;
-    var meeting_status, meeting_id, meetingDel_status;
+    var meeting_status, meeting_id, meetingDel_status, meetingDel;
+    var meetingChanged;
 
     var body = {
         organizer: 'Administrator',
@@ -24,7 +25,7 @@ context('Smoke test for meetings', function () {
         start: moment().add(start, 'hours').utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
         end: moment().add(end, 'hours').utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
         location: '',
-        roomEmail: 'gualy777@gualy.lab.local',
+        roomEmail: 'Gualy777@gualy.lab.local',
         resources: [],
         attendees: []
     };
@@ -78,15 +79,18 @@ context('Smoke test for meetings', function () {
     afterEach(function (done) {
         locations.delLocationById(modifiedRoom.locationId, function (err, res) {
             meetings.deleteMeetings(meetingRes._id, meetingRes.serviceId, meetingRes.roomId, function (err, res) {
+                meetingDel = res.body;
                 meetingDel_status = res.status;
                 done();
             })
         })
     });
 
-    it('- GET /rooms/{:roomId}/meetings', function (done) {
+    it('Get /rooms/{:roomId}/meetings', function (done) {
         meetings.getMeetings(room._id, function (err, res) {
             expect(res.status).to.equal(expectedStatus);
+            expect(res.body[0].roomId).to.equal(room._id);
+            expect(res.body[0].organizer).to.equal(body.organizer);
             done();
         })
     });
@@ -94,24 +98,37 @@ context('Smoke test for meetings', function () {
     it('Get /services/{:serviceId}/rooms/{:roomId}/meetings returns 200', function (done) {
         meetings.getMeetingsWithService(service._id, room._id, function (err, res) {
             expect(res.status).to.equal(expectedStatus);
+            expect(res.body[0].organizer).to.equal(body.organizer);
+            expect(res.body[0].customName).to.equal(body.customName);
+            expect(res.body[0].title).to.equal(body.title);
+            expect(res.body[0].roomEmail).to.equal(body.roomEmail);
             done();
         })
     });
 
     it('Post /services/{:serviceId}/rooms/{:roomId}/meetings returns 200', function (done) {
         expect(meeting_status).to.equal(expectedStatus);
-         done();
+        expect(meetingRes.organizer).to.equal(body.organizer);
+        expect(meetingRes.serviceId).to.equal(service._id);
+        expect(meetingRes.roomId).to.equal(room._id);
+        expect(meetingRes.roomEmail).to.equal(body.roomEmail);
+        done();
      });
 
     it('Get /services/{:serviceId}/rooms/{:roomId}/meetings/{:meetingId} returns 200', function (done) {
         meetings.getMeetingsWithServiceById(service._id, room._id, meeting_id, function (err, res) {
             expect(res.status).to.equal(expectedStatus);
+            expect(meetingRes.organizer).to.equal(body.organizer);
+            expect(meetingRes.serviceId).to.equal(service._id);
+            expect(meetingRes.roomId).to.equal(room._id);
+            expect(meetingRes._id).to.equal(meeting_id);
+            expect(meetingRes.roomEmail).to.equal(body.roomEmail);
             done();
         });
     });
 
     it('Put /services/{:serviceId}/rooms/{:roomId}/meetings/{:meetingId} returns 200', function (done) {
-        var meetingChanged = {
+        meetingChanged = {
             title: "new title",
             start: moment().add(start+10, 'hours').utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
             end: moment().add(end+10, 'hours').utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
@@ -121,12 +138,22 @@ context('Smoke test for meetings', function () {
 
         meetings.putMeetingsWithServiceById(service._id, room._id, meeting_id, meetingChanged, function (err, res) {
             expect(res.status).to.equal(expectedStatus);
+            expect(res.body.organizer).to.equal(body.organizer);
+            expect(res.body.serviceId).to.equal(service._id);
+            expect(res.body.roomId).to.equal(room._id);
+            expect(res.body._id).to.equal(meeting_id);
+            expect(res.body.roomEmail).to.equal(body.roomEmail);
+            expect(res.body.title).to.equal(meetingChanged.title);
             done();
         })
     });
 
     it('Delete /services/{:serviceId}/rooms/{:roomId}/meetings returns 200', function (done) {
         expect(meetingDel_status).to.equal(expectedStatus);
+        expect(meetingDel.organizer).to.equal(body.organizer);
+        expect(meetingDel.serviceId).to.equal(service._id);
+        expect(meetingDel.roomId).to.equal(room._id);
+        expect(meetingDel.kind).to.equal('meeting');
         done();
     });
 });
