@@ -79,8 +79,6 @@ context('Acceptance test for Services', function () {
     it('Get /services/{:serviceId}/rooms/{:roomId}', function (done) {
         services.getARoomOfAService(postResponse.body._id, room._id, function (err, res) {
             expect(res.status).to.equal(expectedStatus);
-            expect(res.body._id).to.equal(room._id);
-            expect(res.body.serviceId).to.equal(postResponse.body._id);
             expect(res.body.emailAddress).to.equal(room.emailAddress);
             expect(res.body.displayName).to.equal(room.displayName);
             expect(res.body.enabled).to.equal(room.enabled);
