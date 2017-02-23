@@ -77,7 +77,7 @@ context('Acceptance test for Locations', function () {
         })
     })
 
-    it.only('the locations is deleted Delete /locations/{:locationId }', function (done) {
+    it('the locations is deleted Delete /locations/{:locationId }', function (done) {
         var bodyJsonDelete = {
             "name": "B20111",
             "customName": "B20111",
