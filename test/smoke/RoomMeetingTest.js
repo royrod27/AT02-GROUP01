@@ -12,11 +12,11 @@ var moment = require('moment');
 var service = require('../../lib/helpers/service');
 
 
-context('Smoke test for meetings', function () {
+context.only('Smoke test for meetings', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
-    var start = 197;
-    var end = 198;
+    var start = 210;
+    var end = 211;
     var meeting_status, meeting_id, meetingDel_status;
 
     var body = {
@@ -111,8 +111,33 @@ context('Smoke test for meetings', function () {
         });
     });
 
+    it('Put /services/{:serviceId}/rooms/{:roomId}/meetings/{:meetingId} returns 200', function (done) {
+        var meetingChanged = {
+            title: "new title",
+            start: moment().add(start+10, 'hours').utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
+            end: moment().add(end+10, 'hours').utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
+            attendees: ["Administrator@gualy.lab.local"],
+            optionalAttendees: []
+        };
+
+        meetings.putMeetingsWithServiceById(service._id, room._id, meeting_id, meetingChanged, function (err, res) {
+            expect(res.status).to.equal(expectedStatus);
+            done();
+        })
+    });
+
     it('Delete /services/{:serviceId}/rooms/{:roomId}/meetings returns 200', function (done) {
         expect(meetingDel_status).to.equal(expectedStatus);
         done();
     });
+
+    //////////
+    it.skip('Post /services/{:serviceId}/rooms/{:roomId}/meetings/cancel?{:meetingId}',function (done) {
+        meetings.postCancelMeetingsServiceById(service._id, room._id, meeting_id, function (err, res) {
+            console.log(err);
+            expect(res.status).to.equal(expectedStatus);
+            done();
+        })
+    });
+    ////////
 });
