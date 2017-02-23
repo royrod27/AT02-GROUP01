@@ -1,11 +1,12 @@
 var expect = require('chai').expect;
 var resources = require('../../lib/features/Resources');
 var tokenGenerator = require('../../lib/helpers/TokenGenerator');
+var credentials = require('../../config/config.json');
 
 context('Smoke Tests for Resources', function () {
-    this.timeout(5000);
+    var expectedStatus = credentials.StatusOK;
+    this.timeout(credentials.timeout);
 
-    var expectedStatus = 200;
     var body = {
         name: 'TELEVISION',
         customName: 'Television',

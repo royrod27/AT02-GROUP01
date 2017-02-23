@@ -7,16 +7,16 @@ var roomGenerator = require('../../lib/helpers/GetterRoom');
 var serviceGenerator = require('../../lib/helpers/ServiceGenerator');
 var locations = require('../../lib/features/Locations');
 var rooms = require('../../lib/features/Rooms');
-var conf = require('../../config/config.json');
+var credentials = require('../../config/config.json');
 var moment = require('moment');
 var service = require('../../lib/helpers/service');
 
 
 context.only('Smoke test for meetings', function () {
-    this.timeout(30000);
-    var expectedStatus = 200;
-    var start = 190;
-    var end = 191;
+    var expectedStatus = credentials.StatusOK;
+    this.timeout(credentials.timeout);
+    var start = 193;
+    var end = 194;
     var meeting_status, meeting_id, meetingDel_status;
 
     var body = {

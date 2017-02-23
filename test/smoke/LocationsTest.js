@@ -2,6 +2,7 @@ var expect = require('chai').expect;
 var locations = require('../../lib/features/Locations');
 var room = require('../../resources/room.json');
 var tokenGenerator = require('../../lib/helpers/TokenGenerator');
+var credentials = require('../../config/config.json');
 
 before(function (done) {
     tokenGenerator
@@ -11,7 +12,8 @@ before(function (done) {
 });
 
 context('Smoke test for Locations', function () {
-    this.timeout(10000);
+    var expectedStatus = credentials.StatusOK;
+    this.timeout(credentials.timeout);
 
     var body = {
         "name": "jala",
@@ -38,7 +40,7 @@ context('Smoke test for Locations', function () {
     it('GET /locations', function (done) {
 
         locations.getLocation(function (err, res) {
-            expect(200).to.equal(res.status);
+            expect(expectedStatus).to.equal(res.status);
             done();
         })
     })
@@ -51,7 +53,7 @@ context('Smoke test for Locations', function () {
         };
 
         locations.postLocation(bodyJson, function (err, res) {
-            expect(res.status).to.equal(200);
+            expect(res.status).to.equal(expectedStatus);
             locations.delLocationById(res.body._id, function (err, res) {
                 done();
             })
@@ -60,7 +62,7 @@ context('Smoke test for Locations', function () {
 
     it('Get /locations/{:locationId }', function (done) {
         locations.getLocationById(locationRes._id, function (err, res) {
-            expect(res.status).to.equal(200);
+            expect(res.status).to.equal(expectedStatus);
             done();
         })
 
@@ -71,7 +73,7 @@ context('Smoke test for Locations', function () {
             "customName": "Modify"
         };
         locations.putLocationById(locationRes._id, bodyJson, function (err, res) {
-            expect(res.status).to.equal(200);
+            expect(res.status).to.equal(expectedStatus);
             done();
         })
     })
@@ -84,7 +86,7 @@ context('Smoke test for Locations', function () {
         };
         locations.postLocation(bodyJsonDelete, function (err, res) {
             locations.delLocationById(res.body._id, function (err, res) {
-                expect(res.status).to.equal(200);
+                expect(res.status).to.equal(expectedStatus);
                 done();
             })
         })

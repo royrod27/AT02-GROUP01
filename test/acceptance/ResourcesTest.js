@@ -2,13 +2,15 @@ var expect = require('chai').expect;
 var resources = require('../../lib/features/Resources');
 var tokenGenerator = require('../../lib/helpers/TokenGenerator');
 var resourcesConfig = require('../../resources/resources.json');
+var credentials = require('../../config/config.json')
 
 
 context('Acceptance Tests for Resources', function () {
-    this.timeout(5000);
-    var expectedStatus = 200;
+    var expectedStatus = credentials.StatusOK;
+    this.timeout(credentials.timeout);
     var minimumResources = 1;
-    var responsePostResource;
+    var responsePostResourceBody;
+    var responsePostResourceStatus;
     before(function (done) {
         tokenGenerator
             .generateToken(function (err, res) {
@@ -18,13 +20,14 @@ context('Acceptance Tests for Resources', function () {
 
     beforeEach(function (done) {
         resources.postResources(resourcesConfig.postBody, function (err, res) {
-            responsePostResource = res;
+            responsePostResourceBody = res.body;
+            responsePostResourceStatus = res.status;
             done();
         })
     });
 
     afterEach(function (done) {
-        resources.deleteResource(responsePostResource.body._id, function (err, res) {
+        resources.deleteResource(responsePostResourceBody._id, function (err, res) {
             done();
         })
     });
@@ -38,19 +41,19 @@ context('Acceptance Tests for Resources', function () {
     });
 
     it('Post /resources', function (done) {
-        expect(responsePostResource.status).to.equal(expectedStatus);
-        expect(responsePostResource.body.name).to.equal(resourcesConfig.postBody.name);
-        expect(responsePostResource.body.customName).to.equal(resourcesConfig.postBody.customName);
-        expect(responsePostResource.body.fontIcon).to.equal(resourcesConfig.postBody.fontIcon);
-        expect(responsePostResource.body.from).to.equal(resourcesConfig.postBody.from);
-        expect(responsePostResource.body.description).to.equal(resourcesConfig.postBody.description);
+        expect(responsePostResourceStatus).to.equal(expectedStatus);
+        expect(responsePostResourceBody.name).to.equal(resourcesConfig.postBody.name);
+        expect(responsePostResourceBody.customName).to.equal(resourcesConfig.postBody.customName);
+        expect(responsePostResourceBody.fontIcon).to.equal(resourcesConfig.postBody.fontIcon);
+        expect(responsePostResourceBody.from).to.equal(resourcesConfig.postBody.from);
+        expect(responsePostResourceBody.description).to.equal(resourcesConfig.postBody.description);
         done();
     });
 
     it('Get /resources/{resourceId}', function (done) {
-        resources.getResource(responsePostResource.body._id, function (err, res) {
+        resources.getResource(responsePostResourceBody._id, function (err, res) {
             expect(res.status).to.equal(expectedStatus);
-            expect(res.body._id).to.equal(responsePostResource.body._id);
+            expect(res.body._id).to.equal(responsePostResourceBody._id);
             expect(res.body.name).to.equal(resourcesConfig.postBody.name);
             expect(res.body.customName).to.equal(resourcesConfig.postBody.customName);
             expect(res.body.fontIcon).to.equal(resourcesConfig.postBody.fontIcon);
@@ -61,9 +64,9 @@ context('Acceptance Tests for Resources', function () {
     });
 
     it('Put /resources/{resourceId}', function (done) {
-        resources.putResource(responsePostResource.body._id, resourcesConfig.putBody, function (err, res) {
+        resources.putResource(responsePostResourceBody._id, resourcesConfig.putBody, function (err, res) {
             expect(res.status).to.equal(expectedStatus);
-            expect(res.body._id).to.equal(responsePostResource.body._id);
+            expect(res.body._id).to.equal(responsePostResourceBody._id);
             expect(res.body.name).to.equal(resourcesConfig.putBody.name);
             expect(res.body.customName).to.equal(resourcesConfig.putBody.customName);
             expect(res.body.fontIcon).to.equal(resourcesConfig.putBody.fontIcon);
@@ -74,9 +77,9 @@ context('Acceptance Tests for Resources', function () {
     });
 
     it('Delete /resources/{resourceId}', function (done) {
-        resources.deleteResource(responsePostResource.body._id, function (err, res) {
+        resources.deleteResource(responsePostResourceBody._id, function (err, res) {
             expect(res.status).to.equal(expectedStatus);
-            expect(res.body._id).to.equal(responsePostResource.body._id);
+            expect(res.body._id).to.equal(responsePostResourceBody._id);
             expect(res.body.name).to.equal(resourcesConfig.postBody.name);
             expect(res.body.customName).to.equal(resourcesConfig.postBody.customName);
             expect(res.body.fontIcon).to.equal(resourcesConfig.postBody.fontIcon);

@@ -4,12 +4,13 @@ var outOfOrders = require('../../lib/features/OutOfOrders');
 var tokenGenerator = require('../../lib/helpers/TokenGenerator');
 var credentials = require('../../config/config.json');
 var roomGenerator = require('../../lib/helpers/GetterRoom');
+var credentials = require('../../config/config.json');
 var room = require('../../lib/helpers/room');
 
 
 context('Smoke test for Out-Of-Orders', function () {
-    var expectedStatus = 200;
-    this.timeout(30000);
+    var expectedStatus = credentials.StatusOK;
+    this.timeout(credentials.timeout);
 
     var serviceJson = {
         username: credentials.serviceUsername,
