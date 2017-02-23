@@ -4,11 +4,13 @@
   "description": "Create a new framework",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
-    "watch": "mocha --watch",
+    "test": "mocha --recursive",
+    "watch": "mocha --watch --recursive",
+
     "smoke": "mocha test/smoke",
-    "acceptance": "mocha test/acceptance --recursive"
-  },
+    "acceptance": "mocha test/acceptance --recursive",
+    "bdt" : "mocha test/bdt --recursive"
+   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JFVF/AT02-GROUP01.git"
