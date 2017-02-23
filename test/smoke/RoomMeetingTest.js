@@ -9,16 +9,19 @@ var locations = require('../../lib/features/Locations');
 var rooms = require('../../lib/features/Rooms');
 var conf = require('../../config/config.json');
 var moment = require('moment');
+var service = require('../../lib/helpers/service');
 
-context('Smoke test for meetings', function () {
-    this.timeout(10000);
-    var serviceId;
-    var start = 130;
-    var end = 130;
+
+context.only('Smoke test for meetings', function () {
+    this.timeout(30000);
+    var expectedStatus = 200;
+    var start = 190;
+    var end = 191;
+    var meeting_status;
 
     var body = {
         organizer: 'Administrator',
-        title: 'test bla',
+        title: 'titleMeet',
         start: moment().add(start, 'hours').utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
         end: moment().add(end, 'hours').utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
         location: '',
@@ -43,7 +46,6 @@ context('Smoke test for meetings', function () {
         tokenGenerator
             .generateToken(function (err, res) {
                 serviceGenerator.generateService(function (err, res) {
-                    serviceId = res.body._id;
                     roomGenerator.getRoom(function (err, res) {
                         done();
                     });
@@ -63,9 +65,10 @@ context('Smoke test for meetings', function () {
             rooms.putRoomsById(room._id, modifiedRoom, function (err, res) {
                 body.location = room.displayName;
                 body.roomEmail = room.emailAddress;
-                meetings.postMeetings(room._id, serviceId, body, function (err, res) {
+                meetings.postMeetings(room._id, service._id, body, function (err, res) {
                     meetingErr = err;
                     meetingRes = res.body;
+                    meeting_status = res.status;
                     done();
                 });
             });
@@ -85,4 +88,16 @@ context('Smoke test for meetings', function () {
             done();
         })
     })
+
+    it('Get /services/{:serviceId}/rooms/{:roomId}/meetings returns 200', function (done) {
+        meetings.getMeetingsWithService(service._id, room._id, function (err, res) {
+            expect(res.status).to.equal(expectedStatus);
+            done();
+        })
+    });
+
+    it('Post /services/{:serviceId}/rooms/{:roomId}/meetings returns 200', function (done) {
+        expect(meeting_status).to.equal(expectedStatus);
+         done();
+     });
 });
