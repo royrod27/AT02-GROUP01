@@ -8,17 +8,17 @@ var roomGenerator = require('../../lib/helpers/GetterRoom');
 var serviceGenerator = require('../../lib/helpers/ServiceGenerator');
 var rooms = require('../../lib/features/Rooms');
 var room = require('../../lib/helpers/room');
+var credentials = require('../../config/config.json');
 
 context('Acceptance tests for Rooms endpoint', function () {
-    this.timeout(5000);
-    var expectedStatus = 200;
+    var expectedStatus = credentials.StatusOK;
+    this.timeout(credentials.timeout);
     var minimumRoomsExpected = 1;
 
     before(function (done) {
         tokenGenerator
             .generateToken(function (err, res) {
                 serviceGenerator.generateService(function (err, res) {
-                    console.log(room);
                     roomGenerator.getRoom(function (err, res) {
                         done();
                     });
@@ -33,7 +33,7 @@ context('Acceptance tests for Rooms endpoint', function () {
     });
 
 
-    it('Get all rooms verifying their parameters', function (done) {
+    it('Get /Rooms returns all rooms', function (done) {
         rooms.getRooms(function (err, res) {
             expect(res.status).to.equal(expectedStatus);
             expect(res.body.length).to.be.at.least(minimumRoomsExpected);
@@ -41,7 +41,7 @@ context('Acceptance tests for Rooms endpoint', function () {
         });
     });
 
-    it('Put - verifies the newly room created', function (done) {
+    it('Put /Rooms/{roomId} returns the first room modified', function (done) {
         var modifiedRoom = {
             displayName: 'GualyVc',
             customDisplayName: 'GualyVc'
@@ -65,9 +65,9 @@ context('Acceptance tests for Rooms endpoint', function () {
         });
     });
 
-    it('Get - Verifies that attributes are the same of a Room by Id', function (done) {
+    it('Get /Rooms/{roomId} - returns an specific Room by its Id', function (done) {
         rooms.getRoomsById(room._id, function (err, res) {
-            getRoomByIdBody = res.body;
+            var getRoomByIdBody = res.body;
             expect(getRoomByIdBody._id).to.equal(room._id)
             expect(getRoomByIdBody.displayName).to.equal(room.displayName)
             expect(getRoomByIdBody.customDisplayName).to.equal(room.customDisplayName)
