@@ -20,8 +20,6 @@ context('Acceptance tests for Rooms endpoint', function () {
                 serviceGenerator.generateService(function (err, res) {
                     console.log(room);
                     roomGenerator.getRoom(function (err, res) {
-                        console.log('********************')
-                        console.log(room);
                         done();
                     });
                 });
@@ -35,14 +33,15 @@ context('Acceptance tests for Rooms endpoint', function () {
     });
 
 
-    it.only('Get all rooms verifying their parameters', function (done) {
+    it('Get all rooms verifying their parameters', function (done) {
         rooms.getRooms(function (err, res) {
+            expect(res.status).to.equal(expectedStatus);
             expect(res.body.length).to.be.at.least(minimumRoomsExpected);
             done();
         });
     });
 
-    it.only('Put - verifies the newly room created', function (done) {
+    it('Put - verifies the newly room created', function (done) {
         var modifiedRoom = {
             displayName: 'GualyVc',
             customDisplayName: 'GualyVc'
@@ -55,6 +54,7 @@ context('Acceptance tests for Rooms endpoint', function () {
             expect(putRoomBody._id).to.be.equal(room._id)
             expect(putRoomBody.serviceId).to.be.equal(room.serviceId)
             expect(putRoomBody.enable).to.be.equal(room.enable)
+            expect(res.status).to.equal(expectedStatus);
             var recoverRoom = {
                 displayName: room.displayName,
                 customDisplayName: room.customDisplayName
@@ -65,7 +65,7 @@ context('Acceptance tests for Rooms endpoint', function () {
         });
     });
 
-    it.only('Get - Verifies that attributes are the same of a Room by Id', function (done) {
+    it('Get - Verifies that attributes are the same of a Room by Id', function (done) {
         rooms.getRoomsById(room._id, function (err, res) {
             getRoomByIdBody = res.body;
             expect(getRoomByIdBody._id).to.equal(room._id)
@@ -76,6 +76,7 @@ context('Acceptance tests for Rooms endpoint', function () {
             expect(getRoomByIdBody.Url).to.equal(room.Url)
             expect(getRoomByIdBody.__v).to.equal(room.__v)
             expect(getRoomByIdBody.locationId).to.equal(room.locationId)
+            expect(res.status).to.equal(expectedStatus);
             done();
         });
     });
