@@ -15,6 +15,7 @@ context('Smoke test for meetings', function () {
     var serviceId;
     var start = 130;
     var end = 130;
+    var expectedStatus = 200;
 
     var body = {
         organizer: 'Administrator',
@@ -82,6 +83,7 @@ context('Smoke test for meetings', function () {
 
     it('- GET /rooms/{:roomId}/meetings', function (done) {
         meetings.getMeetings(room._id, function (err, res) {
+            expect(res.status).to.equal(expectedStatus);
             done();
         })
     })
