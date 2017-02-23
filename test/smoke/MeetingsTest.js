@@ -1,6 +1,5 @@
 var expect = require('chai').expect;
-var meetings = require('../../lib/features/RoomMeetings');
-var room_resources = require('../../lib/features/RoomResources');
+var meetings = require('../../lib/features/Meetings');
 var room = require('../../lib/helpers/room');
 var tokenGenerator = require('../../lib/helpers/TokenGenerator');
 var roomGenerator = require('../../lib/helpers/GetterRoom');
@@ -12,7 +11,7 @@ var moment = require('moment');
 var service = require('../../lib/helpers/service');
 
 
-context.only('Smoke test for meetings', function () {
+context('Smoke test for meetings', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
     var start = 210;
@@ -83,7 +82,7 @@ context.only('Smoke test for meetings', function () {
                 done();
             })
         })
-    })
+    });
 
     it('- GET /rooms/{:roomId}/meetings', function (done) {
         meetings.getMeetings(room._id, function (err, res) {
@@ -130,14 +129,4 @@ context.only('Smoke test for meetings', function () {
         expect(meetingDel_status).to.equal(expectedStatus);
         done();
     });
-
-    //////////
-    it.skip('Post /services/{:serviceId}/rooms/{:roomId}/meetings/cancel?{:meetingId}',function (done) {
-        meetings.postCancelMeetingsServiceById(service._id, room._id, meeting_id, function (err, res) {
-            console.log(err);
-            expect(res.status).to.equal(expectedStatus);
-            done();
-        })
-    });
-    ////////
 });
