@@ -1,3 +1,4 @@
 {
-  "endpoint" : "attendees"
+  "endpoint" : "attendees",
+  "filter" : "?filter="
 }

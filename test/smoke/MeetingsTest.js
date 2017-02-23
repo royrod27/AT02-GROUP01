@@ -1,6 +1,5 @@
 var expect = require('chai').expect;
-var meetings = require('../../lib/features/RoomMeetings');
-var room_resources = require('../../lib/features/RoomResources');
+var meetings = require('../../lib/features/Meetings');
 var room = require('../../lib/helpers/room');
 var tokenGenerator = require('../../lib/helpers/TokenGenerator');
 var roomGenerator = require('../../lib/helpers/GetterRoom');
@@ -15,8 +14,8 @@ var service = require('../../lib/helpers/service');
 context('Smoke test for meetings', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
-    var start = 197;
-    var end = 198;
+    var start = 210;
+    var end = 211;
     var meeting_status, meeting_id, meetingDel_status;
 
     var body = {
@@ -83,7 +82,7 @@ context('Smoke test for meetings', function () {
                 done();
             })
         })
-    })
+    });
 
     it('- GET /rooms/{:roomId}/meetings', function (done) {
         meetings.getMeetings(room._id, function (err, res) {
@@ -109,6 +108,21 @@ context('Smoke test for meetings', function () {
             expect(res.status).to.equal(expectedStatus);
             done();
         });
+    });
+
+    it('Put /services/{:serviceId}/rooms/{:roomId}/meetings/{:meetingId} returns 200', function (done) {
+        var meetingChanged = {
+            title: "new title",
+            start: moment().add(start+10, 'hours').utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
+            end: moment().add(end+10, 'hours').utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
+            attendees: ["Administrator@gualy.lab.local"],
+            optionalAttendees: []
+        };
+
+        meetings.putMeetingsWithServiceById(service._id, room._id, meeting_id, meetingChanged, function (err, res) {
+            expect(res.status).to.equal(expectedStatus);
+            done();
+        })
     });
 
     it('Delete /services/{:serviceId}/rooms/{:roomId}/meetings returns 200', function (done) {
