@@ -15,8 +15,8 @@ var service = require('../../lib/helpers/service');
 context('Smoke test for meetings', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
-    var start = 193;
-    var end = 194;
+    var start = 197;
+    var end = 198;
     var meeting_status, meeting_id, meetingDel_status;
 
     var body = {
