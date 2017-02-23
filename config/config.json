@@ -2,11 +2,12 @@
   "url": "https://10.28.114.51:4040/",
   "username": "Admin",
   "password": "Slayer777",
-
   "serviceUsername": "Administrator",
   "servicePassword": "Slayer777",
   "hostname": "at02guvi02lab.gualy.lab.local",
-
+  "serviceName": "Microsoft Exchange Server 2010 SP3",
+  "serviceType": "exchange",
+  "serviceVersion": "14.3.123",
   "logger": {
     "appenders": [
       {

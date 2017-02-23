@@ -13,8 +13,8 @@ var moment = require('moment');
 context('Smoke test for meetings', function () {
     this.timeout(10000);
     var serviceId;
-    var start = 120;
-    var end = 121;
+    var start = 130;
+    var end = 130;
 
     var body = {
         organizer: 'Administrator',
