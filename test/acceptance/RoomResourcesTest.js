@@ -42,7 +42,6 @@ context('Smoke test for resources of rooms', function () {
         resources.postResources(body, function (err, res) {
             resourceErr = err;
             resourceRes = res.body;
-
             done();
         });
     });
@@ -76,6 +75,35 @@ context('Smoke test for resources of rooms', function () {
                 expect(res.body.resources[0].quantity).to.equal(quantityModify);
                 done();
             })
+        })
+    })
+
+    it('return the resources GET /rooms/{:roomId}/resources', function (done) {
+
+        var jsonJoin = {
+            resourceId: resourceRes._id,
+            quantity: 5
+        };
+
+        var joinResource;
+
+        room_resources.joinRoomResource(room._id, jsonJoin, function (err, res) {
+            joinResource = res.body;
+            room_resources.getResourcesByRoom(room._id, function (err, res) {
+                expect(res.body[0]._id).to.equal(joinResource.resources[0]._id);
+                done();
+            })
+        })
+    })
+
+    it('the resource is created POST /rooms/{:roomId}/resources/', function (done) {
+        var joinResourceToRoom = {
+            resourceId: resourceRes._id,
+            quantity: 8
+        };
+        room_resources.joinRoomResource(room._id, joinResourceToRoom, function (err, res) {
+            expect(resourceRes._id).to.equal(res.body.resources[0].resourceId);
+            done();
         })
     })
 })
