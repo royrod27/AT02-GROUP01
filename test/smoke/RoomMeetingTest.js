@@ -85,6 +85,7 @@ context.only('Smoke test for meetings', function () {
 
     it('- GET /rooms/{:roomId}/meetings', function (done) {
         meetings.getMeetings(room._id, function (err, res) {
+            expect(res.status).to.equal(expectedStatus);
             done();
         })
     })
