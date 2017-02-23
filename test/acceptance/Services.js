@@ -15,7 +15,8 @@ context('Acceptance test for Services', function () {
         password: credentials.servicePassword,
         hostname: credentials.hostname
     };
-    var postResponse;
+    var postResponseBody;
+    var postResponseStatus;
 
     before(function (done) {
         tokenGenerator.generateToken(function (err, res) {
@@ -26,7 +27,8 @@ context('Acceptance test for Services', function () {
     beforeEach(function (done) {
         services.postServices(postBody, function (err, res) {
             minimumServices++;
-            postResponse = res;
+            postResponseBody = res.body;
+            postResponseStatus = res.status;
             roomGenerator.getRoom(function (err, res) {
                 done();
             });
@@ -34,9 +36,9 @@ context('Acceptance test for Services', function () {
     });
 
     afterEach(function (done) {
-        services.deleteService(postResponse.body._id, function (err, res) {
+        services.deleteService(postResponseBody._id, function (err, res) {
             done();
-        })
+        });
     });
 
     it('Get /services', function (done) {
@@ -48,26 +50,26 @@ context('Acceptance test for Services', function () {
     });
 
     it('Post /services', function (done) {
-        expect(postResponse.status).to.equal(expectedStatus);
-        expect(postResponse.body.credential.username).to.equal(postBody.username);
-        expect(postResponse.body.serviceUrl.includes(postBody.hostname)).to.be.true;
+        expect(postResponseStatus).to.equal(expectedStatus);
+        expect(postResponseBody.credential.username).to.equal(postBody.username);
+        expect(postResponseBody.serviceUrl.includes(postBody.hostname)).to.be.true;
         done();
     });
 
     it('Get /services/{serviceId}', function (done) {
-        services.getService(postResponse.body._id, function (err, res) {
+        services.getService(postResponseBody._id, function (err, res) {
             expect(res.status).to.equal(expectedStatus);
-            expect(res.body._id).to.equal(postResponse.body._id);
+            expect(res.body._id).to.equal(postResponseBody._id);
             expect(res.body.credential.username).to.equal(postBody.username);
             expect(res.body.serviceUrl.includes(postBody.hostname)).to.be.true;
             done();
-        })
+        });
     });
 
     it('Delete /services/{serviceId}', function (done) {
-        services.deleteService(postResponse.body._id, function (err, res) {
+        services.deleteService(postResponseBody._id, function (err, res) {
             expect(res.status).to.equal(expectedStatus);
-            expect(res.body._id).to.equal(postResponse.body._id);
+            expect(res.body._id).to.equal(postResponseBody._id);
             expect(res.body.serviceUrl.includes(postBody.hostname)).to.be.true;
             expect(res.body.type).to.equal(credentials.serviceType);
             expect(res.body.name).to.equal(credentials.serviceName);
@@ -77,8 +79,10 @@ context('Acceptance test for Services', function () {
     });
 
     it('Get /services/{:serviceId}/rooms/{:roomId}', function (done) {
-        services.getARoomOfAService(postResponse.body._id, room._id, function (err, res) {
+        services.getARoomOfAService(postResponseBody._id, room._id, function (err, res) {
             expect(res.status).to.equal(expectedStatus);
+            expect(res.body._id).to.equal(room._id);
+            expect(res.body.serviceId).to.equal(postResponseBody._id);
             expect(res.body.emailAddress).to.equal(room.emailAddress);
             expect(res.body.displayName).to.equal(room.displayName);
             expect(res.body.enabled).to.equal(room.enabled);
