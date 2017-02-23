@@ -5,8 +5,8 @@ var moment = require('moment');
 
 
 context('Acceptance Tests for Login', function () {
-    var expectedStatus = 200;
-    this.timeout(5000);
+    var expectedStatus = credentials.StatusOK;
+    this.timeout(credentials.timeout);
 
     it('Post /login request returns 200, it has the same username than username on credentials' +
         ' and, the day of creation is today.', function (done) {

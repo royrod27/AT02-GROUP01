@@ -8,6 +8,8 @@
   "serviceName": "Microsoft Exchange Server 2010 SP3",
   "serviceType": "exchange",
   "serviceVersion": "14.3.123",
+  "timeout": 3000,
+  "StatusOK": 200,
   "logger": {
     "appenders": [
       {

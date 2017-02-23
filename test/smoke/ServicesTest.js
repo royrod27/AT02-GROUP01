@@ -8,9 +8,9 @@ var room = require('../../lib/helpers/room');
 
 
 context('Smoke test for Services', function () {
-    var expectedStatus = 200;
+    var expectedStatus = credentials.StatusOK;
+    this.timeout(credentials.timeout);
     var serviceRes;
-    this.timeout(30000);
 
     var serviceJson = {
         username: credentials.serviceUsername,
