@@ -43,7 +43,7 @@ context('Smoke test for Locations', function () {
         })
     })
 
-    it.only('Post /locations', function (done) {
+    it('Post /locations', function (done) {
         var bodyJson = {
             "name": "B201",
             "customName": "B201",
@@ -52,7 +52,6 @@ context('Smoke test for Locations', function () {
 
         locations.postLocation(bodyJson, function (err, res) {
             expect(res.status).to.equal(200);
-            console.log(res.body);
             locations.delLocationById(res.body._id, function (err, res) {
                 done();
             })

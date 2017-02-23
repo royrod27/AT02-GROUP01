@@ -10,15 +10,15 @@ var rooms = require('../../lib/features/Rooms');
 var conf = require('../../config/config.json');
 var moment = require('moment');
 
-context('Smoke test for meetings', function () {
+context.skip('Smoke test for meetings', function () {
     this.timeout(10000);
     var serviceId;
 
     var body = {
         organizer: 'Administrator',
         title: 'bla',
-        start: moment().add(9, 'hours').utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
-        end: moment().add(10, 'hours').utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
+        start: moment().add(13, 'hours').utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
+        end: moment().add(14, 'hours').utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
         location: '',
         roomEmail: 'gualy777@gualy.lab.local',
         resources: [],
@@ -63,6 +63,7 @@ context('Smoke test for meetings', function () {
                 body.location = room.displayName;
                 body.roomEmail = room.emailAddress;
                 meetings.postMeetings(room._id, serviceId, body, function (err, res) {
+                    console.log(room.displayName);
                     meetingErr = err;
                     meetingRes = res.body;
                     done();
@@ -71,7 +72,7 @@ context('Smoke test for meetings', function () {
         });
     });
 
-    it.only('- GET /rooms/{:roomId}/meetings', function (done) {
+    it('- GET /rooms/{:roomId}/meetings', function (done) {
         meetings.getMeetings(room._id, function (err, res) {
             done();
         })
