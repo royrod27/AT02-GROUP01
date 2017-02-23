@@ -10,22 +10,24 @@ var rooms = require('../../lib/features/Rooms');
 var conf = require('../../config/config.json');
 var moment = require('moment');
 
-context.skip('Smoke test for meetings', function () {
+context('Smoke test for meetings', function () {
     this.timeout(10000);
     var serviceId;
+    var start = 120;
+    var end = 121;
 
     var body = {
         organizer: 'Administrator',
-        title: 'bla',
-        start: moment().add(13, 'hours').utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
-        end: moment().add(14, 'hours').utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
+        title: 'test bla',
+        start: moment().add(start, 'hours').utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
+        end: moment().add(end, 'hours').utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
         location: '',
         roomEmail: 'gualy777@gualy.lab.local',
         resources: [],
         attendees: []
     };
 
-    var bodyJson = {
+    var locationBody = {
         "name": "B333",
         "customName": "B333",
         "description": "this is the room"
@@ -56,14 +58,12 @@ context.skip('Smoke test for meetings', function () {
     });
 
     beforeEach(function (done) {
-        locations.postLocation(bodyJson, function (err, res) {
+        locations.postLocation(locationBody, function (err, res) {
             modifiedRoom.locationId = res.body._id;
             rooms.putRoomsById(room._id, modifiedRoom, function (err, res) {
-                body.organizer = conf.serviceUsername;
                 body.location = room.displayName;
                 body.roomEmail = room.emailAddress;
                 meetings.postMeetings(room._id, serviceId, body, function (err, res) {
-                    console.log(room.displayName);
                     meetingErr = err;
                     meetingRes = res.body;
                     done();
@@ -71,6 +71,14 @@ context.skip('Smoke test for meetings', function () {
             });
         });
     });
+
+    afterEach(function (done) {
+        locations.delLocationById(modifiedRoom.locationId, function (err, res) {
+            meetings.deleteMeetings(meetingRes._id, meetingRes.serviceId, meetingRes.roomId, function (err, res) {
+                done();
+            })
+        })
+    })
 
     it('- GET /rooms/{:roomId}/meetings', function (done) {
         meetings.getMeetings(room._id, function (err, res) {
