@@ -14,7 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/JFVF/AT02-GROUP01.git"
   },
-  "author": "AT02-Team1:Roy Rodriguez, Sergio Landa, Fernando Iquiza, Gualberto Villarroel",
+  "author": "AT02-Team1:Roy Rodriguez, Sergio Landa, Gualberto Villarroel, Fernando Iquiza",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/JFVF/AT02-GROUP01/issues"
@@ -23,10 +23,14 @@
   "dependencies": {
     "chai": "^3.5.0",
     "jsonfile": "^2.4.0",
+    "log4js": "^1.1.0",
     "mocha": "^3.2.0",
     "moment": "^2.17.1",
     "superagent": "^3.4.1",
     "superagent-proxy": "^1.0.2",
     "xunit-file": "^1.0.0"
+  },
+  "devDependencies": {
+    "mochawesome": "^2.0.4"
   }
 }

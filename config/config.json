@@ -8,6 +8,7 @@
   "serviceName": "Microsoft Exchange Server 2010 SP3",
   "serviceType": "exchange",
   "serviceVersion": "14.3.123",
+  "envNODE_TLS_REJECT_UNAUTHORIZED": 0,
   "timeout": 3000,
   "StatusOK": 200,
   "startTime": 290,
