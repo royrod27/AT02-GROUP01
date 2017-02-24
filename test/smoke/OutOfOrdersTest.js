@@ -4,7 +4,6 @@ var outOfOrders = require('../../lib/features/OutOfOrders');
 var tokenGenerator = require('../../lib/helpers/TokenGenerator');
 var credentials = require('../../config/config.json');
 var roomGenerator = require('../../lib/helpers/GetterRoom');
-var credentials = require('../../config/config.json');
 var room = require('../../lib/helpers/room');
 
 

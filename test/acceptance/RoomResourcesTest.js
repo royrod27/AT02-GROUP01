@@ -62,7 +62,7 @@ context('Smoke test for resources of rooms', function () {
                 done();
             })
         })
-    })
+    });
 
     it('the quantity is modify for the new value PUT /rooms/{:roomId}/resources/{:roomResourceId}', function (done) {
         var quantityModify = 10;
@@ -76,7 +76,7 @@ context('Smoke test for resources of rooms', function () {
                 done();
             })
         })
-    })
+    });
 
     it('return the resources GET /rooms/{:roomId}/resources', function (done) {
 
@@ -94,7 +94,7 @@ context('Smoke test for resources of rooms', function () {
                 done();
             })
         })
-    })
+    });
 
     it('the resource is created POST /rooms/{:roomId}/resources/', function (done) {
         var joinResourceToRoom = {
@@ -106,4 +106,4 @@ context('Smoke test for resources of rooms', function () {
             done();
         })
     })
-})
+});
