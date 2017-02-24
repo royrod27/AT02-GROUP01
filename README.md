@@ -1,19 +1,20 @@
 # AT02-GROUP01
-Framework from scratch
+Room Manager - API
 
 
-
-WHAT IS IT?
+WHAT'S IT?
 ------------
 
 AT02-GROUP01 project based in JavaScript language,
-Is a project oriented to test the different endpoints of RoomManager appplication,
+It is a project developed from scratch oriented to test the different endpoints of RoomManager appplication,
 through its Representational State Transfer(REST) API.
+
 
 THE LATEST VERSION
 ------------------
 
-Details of the latest version can be found in Github repository page: https://github.com/JFVF/AT02-GROUP01
+Details of the latest version can be found on GitHub repository page: https://github.com/JFVF/AT02-GROUP01
+
 
 ENVIRONMENT
 -----------
@@ -34,12 +35,14 @@ RoomManager
 	- NodeJS
 	- RoomManager
 
+
 REQUIREMENTS
 ------------
 
 To install the required dependencies for the framework, it is necessary to be in the path of the project, and execute the following command.
 
 npm install
+
 
 LIBRARIES
 ---------
@@ -75,36 +78,41 @@ The following tests were implemented to test every endpoint of RoomManager appli
 	- Acceptance tetst.
 	- BDT
 
-RUN TESTS
+
+COMMANDS TO RUN THE TESTS
 ---------
+
 - ALL TEST
+	npm run-script test
+	
+	With Reports:
         node node_modules\mocha\bin\_mocha test\ --recursive --reporter mochawesome
-     or
+     	or
         node node_modules\mocha\bin\_mocha test\ --recursive --reporter xunit-file
 
 - SMOKE TESTS
+	npm run-script smok
+	
+	With Reports:
         node node_modules\mocha\bin\_mocha test\smoke --recursive --reporter mochawesome
-     or
+    	or
         node node_modules\mocha\bin\_mocha test\smoke --recursive --reporter xunit-file
 
 - ACCEPTANCE TESTS
+	npm run-script acceptance
+	
+	With Reports:
         node node_modules\mocha\bin\_mocha test\acceptance --recursive --reporter mochawesome
-     or
+     	or
         node node_modules\mocha\bin\_mocha test\acceptance --recursive --reporter xunit-file
-
-CONTACTS
---------
-
-    - If you want to be informed about new code releases, bug fixes,
-      security fixes, general news and information about the AT02-GROUP01 project
-      check to the GitHub repository
-      https://github.com/JFVF/AT02-GROUP01
+	
+	
 
 CONTRIBUTORS
 ------------
 
-Current contributors:
  * Fernando Iquiza(fernandoiquiza) - https://github.com/fernandoiquiza
  * Gualberto Villarroel(GualbertoVillarroel) - https://github.com/GualbertoVillarroel
  * Roy Rodriguez(royrod27) - https://github.com/royrod27
  * Sergio Landa(SergioLanda) - https://github.com/SergioLanda
+ 
