@@ -8,7 +8,7 @@ var serviceGenerator = require('../../lib/helpers/ServiceGenerator');
 var credentials = require('../../config/config.json');
 
 
-context('Smoke test for resources of rooms', function () {
+describe('Smoke test for resources of rooms', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
     var resourceErr, resourceRes;

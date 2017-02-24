@@ -4,7 +4,7 @@ var tokenGenerator = require('../../lib/helpers/TokenGenerator');
 var credentials = require('../../config/config.json');
 
 
-context('Smoke Tests for Resources', function () {
+describe('Smoke Tests for Resources', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
     var resourceErr, resourceRes;

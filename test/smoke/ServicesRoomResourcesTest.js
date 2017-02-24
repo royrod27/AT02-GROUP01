@@ -9,7 +9,7 @@ var service = require('../../lib/helpers/service');
 var credentials = require('../../config/config.json');
 
 
-context('Smoke tests for Services/Room/Resources endpoint', function () {
+describe('Smoke tests for Services/Room/Resources endpoint', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
     var responsePost;

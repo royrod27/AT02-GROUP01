@@ -12,7 +12,7 @@ before(function (done) {
         })
 });
 
-context('Smoke test for Locations', function () {
+describe('Smoke test for Locations', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
 

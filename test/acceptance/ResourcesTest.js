@@ -5,7 +5,7 @@ var resourcesConfig = require('../../resources/resources.json');
 var credentials = require('../../config/config.json')
 
 
-context('Acceptance Tests for Resources', function () {
+describe('Acceptance Tests for Resources', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
     var minimumResources = 1;
