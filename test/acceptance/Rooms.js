@@ -1,7 +1,3 @@
-/**
- * Created by Fernando on 2/22/2017.
- */
-
 var expect = require('chai').expect;
 var tokenGenerator = require('../../lib/helpers/TokenGenerator');
 var roomGenerator = require('../../lib/helpers/GetterRoom');
@@ -9,6 +5,7 @@ var serviceGenerator = require('../../lib/helpers/ServiceGenerator');
 var rooms = require('../../lib/features/Rooms');
 var room = require('../../lib/helpers/room');
 var credentials = require('../../config/config.json');
+
 
 context('Acceptance tests for Rooms endpoint', function () {
     var expectedStatus = credentials.StatusOK;
@@ -80,4 +77,4 @@ context('Acceptance tests for Rooms endpoint', function () {
             done();
         });
     });
-})
+});

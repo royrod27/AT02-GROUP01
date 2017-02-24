@@ -3,9 +3,11 @@ var resources = require('../../lib/features/Resources');
 var tokenGenerator = require('../../lib/helpers/TokenGenerator');
 var credentials = require('../../config/config.json');
 
+
 context('Smoke Tests for Resources', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
+    var resourceErr, resourceRes;
 
     var body = {
         name: 'TELEVISION',
@@ -14,7 +16,6 @@ context('Smoke Tests for Resources', function () {
         from: "",
         description: 'This is a television'
     };
-    var resourceErr, resourceRes;
 
     before(function (done) {
         tokenGenerator
@@ -60,6 +61,7 @@ context('Smoke Tests for Resources', function () {
             done();
         });
     });
+
     it('Delete /resources/{id} resturn 200', function (done) {
         var body = {
             name: 'Flag',
@@ -75,6 +77,7 @@ context('Smoke Tests for Resources', function () {
             });
         });
     });
+
     it('Get a resource /resources/{id} returns 200', function (done) {
         resources.getResource(resourceRes.body._id, function (err, res) {
             expect(res.status).to.equal(expectedStatus);

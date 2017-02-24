@@ -4,6 +4,7 @@ var room = require('../../resources/room.json');
 var tokenGenerator = require('../../lib/helpers/TokenGenerator');
 var credentials = require('../../config/config.json');
 
+
 before(function (done) {
     tokenGenerator
         .generateToken(function (err, res) {
@@ -43,7 +44,7 @@ context('Smoke test for Locations', function () {
             expect(expectedStatus).to.equal(res.status);
             done();
         })
-    })
+    });
 
     it('Post /locations', function (done) {
         var bodyJson = {
@@ -58,7 +59,7 @@ context('Smoke test for Locations', function () {
                 done();
             })
         });
-    })
+    });
 
     it('Get /locations/{:locationId }', function (done) {
         locations.getLocationById(locationRes._id, function (err, res) {
@@ -66,7 +67,7 @@ context('Smoke test for Locations', function () {
             done();
         })
 
-    })
+    });
 
     it('Put /locations/{:locationId }', function (done) {
         var bodyJson = {
@@ -76,7 +77,7 @@ context('Smoke test for Locations', function () {
             expect(res.status).to.equal(expectedStatus);
             done();
         })
-    })
+    });
 
     it('Delete /locations/{:locationId }', function (done) {
         var bodyJsonDelete = {
@@ -90,10 +91,5 @@ context('Smoke test for Locations', function () {
                 done();
             })
         })
-    })
-
-})
-
-
-
-
+    });
+});

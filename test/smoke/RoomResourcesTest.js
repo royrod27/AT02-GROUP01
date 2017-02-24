@@ -11,6 +11,7 @@ var credentials = require('../../config/config.json');
 context('Smoke test for resources of rooms', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
+    var resourceErr, resourceRes;
 
     before(function (done) {
         tokenGenerator
@@ -37,8 +38,6 @@ context('Smoke test for resources of rooms', function () {
         description: "delete testResource"
     };
 
-    var resourceErr, resourceRes;
-
     beforeEach(function (done) {
         resources.postResources(body, function (err, res) {
             resourceErr = err;
@@ -47,6 +46,7 @@ context('Smoke test for resources of rooms', function () {
             done();
         });
     });
+
     afterEach(function (done) {
         resources.deleteResource(resourceRes._id, function (err, res) {
             done();
@@ -64,7 +64,7 @@ context('Smoke test for resources of rooms', function () {
                 done();
             })
         })
-    })
+    });
 
     it('PUT /rooms/{:roomId}/resources/{:roomResourceId}', function (done) {
         var jsonJoin = {
@@ -77,7 +77,7 @@ context('Smoke test for resources of rooms', function () {
                 done();
             })
         })
-    })
+    });
 
     it('DELETE /rooms/{:roomId}/resources/{:roomResourceId}', function (done) {
         var jsonJoin = {
@@ -90,14 +90,14 @@ context('Smoke test for resources of rooms', function () {
                 done();
             })
         })
-    })
+    });
 
     it('GET /rooms/{:roomId}/resources', function (done) {
         room_resources.getResourcesByRoom(room._id, function (err, res) {
             expect(res.status).to.equal(expectedStatus);
             done();
         })
-    })
+    });
 
     it('POST /rooms/{:roomId}/resources/', function (done) {
         var joinResourceToRoom = {
@@ -108,8 +108,5 @@ context('Smoke test for resources of rooms', function () {
                 expect(res.status).to.equal(expectedStatus);
                 done();
         })
-    })
-})
-
-
-
+    });
+});

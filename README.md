@@ -75,6 +75,23 @@ The following tests were implemented to test every endpoint of RoomManager appli
 	- Acceptance tetst.
 	- BDT
 
+RUN TESTS
+---------
+- ALL TEST
+        node node_modules\mocha\bin\_mocha test\ --recursive --reporter mochawesome
+     or
+        node node_modules\mocha\bin\_mocha test\ --recursive --reporter xunit-file
+
+- SMOKE TESTS
+        node node_modules\mocha\bin\_mocha test\smoke --recursive --reporter mochawesome
+     or
+        node node_modules\mocha\bin\_mocha test\smoke --recursive --reporter xunit-file
+
+- ACCEPTANCE TESTS
+        node node_modules\mocha\bin\_mocha test\acceptance --recursive --reporter mochawesome
+     or
+        node node_modules\mocha\bin\_mocha test\acceptance --recursive --reporter xunit-file
+
 CONTACTS
 --------
 

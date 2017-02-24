@@ -6,6 +6,7 @@ var roomGenerator = require('../../lib/helpers/GetterRoom');
 var serviceGenerator = require('../../lib/helpers/ServiceGenerator');
 var credentials = require('../../config/config.json');
 
+
 context('Smoke Tests for Rooms', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
@@ -26,7 +27,6 @@ context('Smoke Tests for Rooms', function () {
             done();
         });
     });
-
 
     it('Get all rooms /rooms returns 200', function (done) {
         rooms.getRooms(function (err, res) {
@@ -52,4 +52,4 @@ context('Smoke Tests for Rooms', function () {
             done();
         });
     });
-})
+});

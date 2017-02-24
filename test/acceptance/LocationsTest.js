@@ -4,6 +4,7 @@ var room = require('../../resources/room.json');
 var tokenGenerator = require('../../lib/helpers/TokenGenerator');
 var credentials = require('../../config/config.json');
 
+
 before(function (done) {
     tokenGenerator
         .generateToken(function (err, res) {
@@ -42,7 +43,7 @@ context('Acceptance test for Locations', function () {
             expect(res.body[0].name).to.equal(body.name);
             done();
         })
-    })
+    });
 
     it('have the same name with it create Post /locations', function (done) {
         var bodyJson = {
@@ -57,7 +58,7 @@ context('Acceptance test for Locations', function () {
                 done();
             })
         });
-    })
+    });
 
     it('obtain the location generate Get /locations/{:locationId }', function (done) {
         locations.getLocationById(locationRes._id, function (err, res) {
@@ -65,7 +66,7 @@ context('Acceptance test for Locations', function () {
             done();
         })
 
-    })
+    });
 
     it('have the custom name modify Put /locations/{:locationId }', function (done) {
         var bodyJson = {
@@ -75,7 +76,7 @@ context('Acceptance test for Locations', function () {
             expect(res.body.customName).to.equal(bodyJson.customName);
             done();
         })
-    })
+    });
 
     it('the locations is deleted Delete /locations/{:locationId }', function (done) {
         var bodyJsonDelete = {
@@ -92,8 +93,4 @@ context('Acceptance test for Locations', function () {
             })
         })
     })
-})
-
-
-
-
+});

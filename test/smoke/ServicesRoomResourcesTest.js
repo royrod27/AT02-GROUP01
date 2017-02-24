@@ -1,6 +1,3 @@
-/**
- * Created by Fernando on 2/21/2017.
- */
 var expect = require('chai').expect;
 var tokenGenerator = require('../../lib/helpers/TokenGenerator');
 var roomGenerator = require('../../lib/helpers/GetterRoom');
@@ -10,6 +7,7 @@ var resources = require('../../lib/features/Resources');
 var room = require('../../lib/helpers/room');
 var service = require('../../lib/helpers/service');
 var credentials = require('../../config/config.json');
+
 
 context('Smoke tests for Services/Room/Resources endpoint', function () {
     var expectedStatus = credentials.StatusOK;
