@@ -7,7 +7,7 @@ var serviceGenerator = require('../../lib/helpers/ServiceGenerator');
 var credentials = require('../../config/config.json');
 
 
-context('Smoke Tests for Rooms', function () {
+describe('Smoke Tests for Rooms', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
 

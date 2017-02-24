@@ -11,7 +11,7 @@ var moment = require('moment');
 var service = require('../../lib/helpers/service');
 
 
-context('Smoke test for meetings', function () {
+describe('Smoke test for meetings', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
     var start = credentials.startTime;

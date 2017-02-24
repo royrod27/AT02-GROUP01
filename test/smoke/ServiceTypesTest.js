@@ -4,7 +4,7 @@ var tokenGenerator = require('../../lib/helpers/TokenGenerator');
 var credentials = require('../../config/config.json');
 
 
-context('Smoke test for Service-Types', function () {
+describe('Smoke test for Service-Types', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
 

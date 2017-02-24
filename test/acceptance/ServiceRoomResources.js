@@ -9,7 +9,7 @@ var service = require('../../lib/helpers/service');
 var credentials = require('../../config/config.json');
 
 
-context('Acceptance tests for Services/Room/Resources endpoint', function () {
+describe('Acceptance tests for Services/Room/Resources endpoint', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
     var responsePost;

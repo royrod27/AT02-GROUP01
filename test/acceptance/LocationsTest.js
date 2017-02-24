@@ -12,7 +12,7 @@ before(function (done) {
         })
 });
 
-context('Acceptance test for Locations', function () {
+describe('Acceptance test for Locations', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
 

@@ -4,7 +4,7 @@ var credentials = require('../../config/config.json');
 var moment = require('moment');
 
 
-context('Acceptance Tests for Login', function () {
+describe('Acceptance Tests for Login', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
 

@@ -3,7 +3,7 @@ var login = require('../../lib/features/Login');
 var credentials = require('../../config/config.json');
 
 
-context('Smoke Tests for Login', function () {
+describe('Smoke Tests for Login', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
 

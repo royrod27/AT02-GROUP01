@@ -7,7 +7,7 @@ var room = require('../../lib/helpers/room');
 var credentials = require('../../config/config.json');
 
 
-context('Acceptance tests for Rooms endpoint', function () {
+describe('Acceptance tests for Rooms endpoint', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
     var minimumRoomsExpected = 1;
