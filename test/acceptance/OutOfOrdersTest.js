@@ -7,7 +7,7 @@ var roomGenerator = require('../../lib/helpers/GetterRoom');
 var room = require('../../lib/helpers/room');
 
 
-describe.only('Smoke test for Out-Of-Orders', function () {
+describe('Smoke test for Out-Of-Orders', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
 
