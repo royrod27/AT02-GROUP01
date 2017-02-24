@@ -96,7 +96,7 @@ context('Smoke test for resources of rooms', function () {
         })
     })
 
-    it.only('the resource is created POST /rooms/{:roomId}/resources/', function (done) {
+    it('the resource is created POST /rooms/{:roomId}/resources/', function (done) {
         var joinResourceToRoom = {
             resourceId: resourceRes._id,
             quantity: 8
