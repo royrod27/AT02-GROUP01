@@ -88,4 +88,11 @@ describe('Smoke test for Out-Of-Orders', function () {
             done();
         });
     });
+
+    it('Get /out-of-orders',function (done) {
+        outOfOrders.getOutOfOrdersWithOutService(function (err, res) {
+            expect(res.status).to.equal(expectedStatus);
+            done();
+        })
+    })
 });
