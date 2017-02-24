@@ -10,12 +10,6 @@
   "serviceVersion": "14.3.123",
   "timeout": 3000,
   "StatusOK": 200,
-  "startTime": 280,
-  "endTime": 281,
-  "logger": {
-    "appenders": [
-      { "type": "file", "filename": "room-manager-auto.log", "category": "meetings"},
-      { "type": "file", "filename": "room-manager-auto.log", "category": "out-of-service"}
-    ]
-  }
+  "startTime": 290,
+  "endTime": 291
 }

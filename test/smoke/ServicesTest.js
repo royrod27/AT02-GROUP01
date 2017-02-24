@@ -6,7 +6,6 @@ var roomGenerator = require('../../lib/helpers/GetterRoom');
 var room = require('../../lib/helpers/room');
 
 
-
 context('Smoke test for Services', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
@@ -56,7 +55,7 @@ context('Smoke test for Services', function () {
         });
     });
 
-//Room manager cannot load rooms from the database after the following test.
+/*Room manager cannot load rooms from the database after the following test.*/
     it.skip('Get /services/{serviceId}/rooms returns 200', function (done) {
         var serviceJson = {
             username: credentials.serviceUsername,

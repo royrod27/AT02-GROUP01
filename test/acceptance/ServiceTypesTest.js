@@ -4,6 +4,7 @@ var tokenGenerator = require('../../lib/helpers/TokenGenerator');
 var serviceTypesJson = require('../../resources/service-types.json');
 var credentials = require('../../config/config.json');
 
+
 context('Acceptance test for Service-Types', function () {
     var expectedStatus = credentials.StatusOK;
     this.timeout(credentials.timeout);
@@ -18,5 +19,3 @@ context('Acceptance test for Service-Types', function () {
         });
     });
 });
-
-
